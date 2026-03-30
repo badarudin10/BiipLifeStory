@@ -2,64 +2,111 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biiplive - Share Your Moments</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Biiplive - Profesional Video Platform</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="video-area">
-    <video id="biiplive-video" loop autoplay muted playsinline style="width: 100%; height: 100%; object-fit: cover;">
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-        Browser kamu tidak mendukung video.
-    </video>
-</div>
+    <div class="app-container">
+        
+        <video id="biiplive-player" loop playsinline>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Browser Anda tidak mendukung video.
+        </video>
+        
+        <div class="ui-overlay">
+            
+            <div class="side-bar">
+                <div class="action-btn" id="like-btn">
+                    <span class="icon">🤍</span>
+                    <span class="count">1.2k</span>
+                </div>
+                <div class="action-btn">
+                    <span class="icon">💬</span>
+                    <span class="count">45</span>
+                </div>
+                <div class="action-btn">
+                    <span class="icon">🔄</span>
+                    <span class="count">Share</span>
+                </div>
+            </div>
 
-
-        <div class="side-icons">
-            <div class="icon-btn">❤️</div>
-            <div class="icon-btn">💬</div>
-            <div class="icon-btn">🔄</div>
+            <div class="bottom-info">
+                <div class="user-profile">
+                    <img src="https://via.placeholder.com/40" alt="Avatar" class="avatar">
+                    <h3 class="username">@biip_creator</h3>
+                    <button class="follow-btn">Ikuti</button>
+                </div>
+                <p class="caption">Mencoba fitur profesional Biiplive dengan tema Hijau Terang! 🔥 #BiiplivePro #Coding</p>
+                <div class="music-info">
+                    <span class="music-icon">🎵</span>
+                    <div class="music-text-container">
+                        <span class="music-text">Suara Asli - Biiplive Creator Studio</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="bottom-nav">
-    <span>🏠</span>
-    <span>🔍</span>
-    <span class="upload-btn">+</span>
-    <span>💬</span>
-    <span>👤</span>
-</div>
-
-            <div class="username">@azzam_biiplive</div>
-            <div class="caption">Mencoba fitur efek terbaru di Biiplive! #coding #biipsite</div>
-            <div class="music">🎵 Musik: Hits 2026 - Artist Name</div>
+            <span class="nav-item active">🏠</span>
+            <span class="nav-item">🔍</span>
+            <div class="nav-item upload-container">
+                <span class="upload-btn">+</span>
+            </div>
+            <span class="nav-item">💬</span>
+            <span class="nav-item">👤</span>
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('biiplive-player');
+            const likeBtn = document.getElementById('like-btn');
+            const uiOverlay = document.querySelector('.ui-overlay');
+            const likeIcon = likeBtn.querySelector('.icon');
+            const likeCount = likeBtn.querySelector('.count');
+            
+            // Variabel Status
+            let liked = false;
+            let currentLikes = 1234; // Simulasi jumlah like awal
+
+            // 1. Interaksi Klik Video (Play/Pause)
+            uiOverlay.addEventListener('click', (e) => {
+                // Pastikan yang diklik bukan tombol interaksi
+                if (!e.target.closest('.action-btn')) {
+                    if (video.paused) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
+                }
+            });
+
+            // 2. Interaksi Tombol Like
+            likeBtn.addEventListener('click', () => {
+                liked = !liked;
+                if (liked) {
+                    likeIcon.innerHTML = '❤️'; // Hati merah
+                    likeIcon.style.color = '#ff3b30';
+                    currentLikes++;
+                } else {
+                    likeIcon.innerHTML = '🤍'; // Hati putih
+                    likeIcon.style.color = 'white';
+                    currentLikes--;
+                }
+                // Update teks jumlah like (format sederhana)
+                likeCount.innerText = (currentLikes / 1000).toFixed(1) + 'k';
+            });
+            
+            // Mencoba Autoplay (banyak browser melarang autoplay muted otomatis)
+            // Jadi video mungkin butuh klik pertama untuk jalan.
+            video.muted = true; // Wajib muted untuk autoplay
+            video.play().catch(error => {
+                console.log("Autoplay dilarang browser, butuh interaksi user.");
+            });
+        });
+    </script>
 </body>
-<script>
-    const likeBtn = document.querySelector('.icon-btn:nth-child(1)');
-    let liked = false;
-
-    likeBtn.addEventListener('click', () => {
-        liked = !liked;
-        if (liked) {
-            likeBtn.innerHTML = '❤️'; // Hati merah
-            likeBtn.style.background = 'rgba(255, 0, 0, 0.4)';
-        } else {
-            likeBtn.innerHTML = '🤍'; // Hati putih
-            likeBtn.style.background = 'rgba(255, 255, 255, 0.2)';
-        }
-    });
-
-    // Klik pada video untuk Play/Pause
-    const video = document.getElementById('biiplive-video');
-    video.addEventListener('click', () => {
-        if (video.paused) {
-            video.play();
-        } else {
-            video.pause();
-        }
-    });
-</script>
+</html>
 
