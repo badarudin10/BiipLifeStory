@@ -1,0 +1,59 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: sans-serif;
+    color: white;
+}
+
+.phone-screen {
+    width: 375px;
+    height: 667px;
+    background-color: black;
+    border: 8px solid #333;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-area {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg, #1f1c2c, #928dab);
+}
+
+.side-icons {
+    position: absolute;
+    right: 15px;
+    bottom: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.icon-btn {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.bottom-info {
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+    right: 80px;
+}
+
+.username { font-weight: bold; color: #00f2ea; margin-bottom: 5px; }
+.caption { font-size: 14px; margin-bottom: 8px; }
