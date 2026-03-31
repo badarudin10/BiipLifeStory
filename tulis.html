@@ -1,21 +1,15 @@
 <div class="art-paper">
-    <input type="text" id="judul" placeholder="Judul Kisahmu..." style="width:100%; font-size:2rem; border:none; outline:none; font-family:'Playfair Display', serif;">
+    <button onclick="history.back()" style="background:none; border:none; color:#999; cursor:pointer; text-align:left; margin-bottom:20px;">← Dashboard</button>
+    
+    <input type="text" id="judul" placeholder="Judul Kisahmu..." 
+           style="width:100%; font-size:2.2rem; border:none; outline:none; font-family:'Playfair Display', serif; background:transparent; color:#333; margin-bottom:10px;">
+    
     <textarea id="story-input" placeholder="Tuliskan jiwamu di sini..."></textarea>
     
-    <div style="display:flex; gap:10px; margin-top:20px;">
-        <button onclick="simpanLokal()" style="padding:10px 20px; background:#333; color:white; border:none; border-radius:5px;">Simpan Pribadi (Download)</button>
-        <button onclick="window.print()" style="padding:10px 20px; background:#d4af37; color:white; border:none; border-radius:5px;">Cetak / Print</button>
+    <div class="action-bar">
+        <button onclick="simpanLokal()" class="btn-action btn-dark">Simpan Pribadi</button>
+        <button onclick="alert('Terpublikasi')" class="btn-action btn-green">Simpan Publik</button>
+        <button onclick="window.print()" class="btn-action btn-gold">Cetak Kisah (Print) 🖨️</button>
     </div>
 </div>
 
-<script>
-    function simpanLokal() {
-        const t = document.getElementById('judul').value || "Kisah";
-        const c = document.getElementById('story-input').value;
-        const blob = new Blob([c], {type: "text/plain"});
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = t + ".txt";
-        a.click();
-    }
-</script>
