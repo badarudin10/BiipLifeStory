@@ -1,43 +1,21 @@
-<div class="art-paper" id="paper">
-    <button onclick="history.back()" class="back-btn">⬅ Dashboard</button>
-    
-    <input type="text" id="judul-kisah" placeholder="Masukkan Judul Kisahmu..." 
-           style="width: 100%; border: none; font-size: 2rem; font-family: 'Playfair Display', serif; outline: none; color: #2d5a27; margin-bottom: 20px;">
-
+<div class="art-paper">
+    <input type="text" id="judul" placeholder="Judul Kisahmu..." style="width:100%; font-size:2rem; border:none; outline:none; font-family:'Playfair Display', serif;">
     <textarea id="story-input" placeholder="Tuliskan jiwamu di sini..."></textarea>
-
-    <div class="action-bar btn-group">
-        <button class="btn-pribadi" onclick="simpanKePerangkat()">Simpan Pribadi (Download)</button>
-        <button class="btn-publik" onclick="alert('Kisah dikirim ke publik!')">Simpan Publik</button>
-        <button class="btn-print" onclick="window.print()">Cetak (Print)</button>
+    
+    <div style="display:flex; gap:10px; margin-top:20px;">
+        <button onclick="simpanLokal()" style="padding:10px 20px; background:#333; color:white; border:none; border-radius:5px;">Simpan Pribadi (Download)</button>
+        <button onclick="window.print()" style="padding:10px 20px; background:#d4af37; color:white; border:none; border-radius:5px;">Cetak / Print</button>
     </div>
 </div>
 
 <script>
-    function simpanKePerangkat() {
-        const judul = document.getElementById('judul-kisah').value || "Kisah Tanpa Judul";
-        const isi = document.getElementById('story-input').value;
-        const teksLengkap = `Judul: ${judul}\n\n${isi}`;
-        
-        // Membuat file otomatis untuk diunduh ke perangkat
-        const blob = new Blob([teksLengkap], { type: "text/plain" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = `${judul}.txt`;
-        link.click();
-        
-        alert("Kisahmu berhasil disimpan ke folder Download perangkat!");
-    }
-
-    // Perbaikan Visual Dekorasi agar tidak error
-    const tema = localStorage.getItem('temaDipilih');
-    const paper = document.getElementById('paper');
-    
-    if(tema === 'Botanical') {
-        paper.style.borderLeft = "15px solid #2d5a27";
-        paper.style.borderRight = "15px solid #2d5a27";
-    } else if(tema === 'Archive') {
-        paper.style.backgroundColor = "#f3e5ab";
-        paper.style.border = "2px solid #8b4513";
+    function simpanLokal() {
+        const t = document.getElementById('judul').value || "Kisah";
+        const c = document.getElementById('story-input').value;
+        const blob = new Blob([c], {type: "text/plain"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = t + ".txt";
+        a.click();
     }
 </script>
