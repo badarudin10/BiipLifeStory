@@ -1,42 +1,76 @@
-<div id="landing-screen" class="full-bg">
-    <div class="welcome-card">
-        <h1 class="brand-logo">BiipLifeStory</h1>
-        <div class="form-container">
-            <input type="text" id="user-input" placeholder="Nama Akun" style="width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;">
-            <input type="password" id="pass-input" placeholder="Sandi" style="width:100%; padding:12px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc;">
-            <button onclick="prosesLogin()" style="width:100%; padding:15px; background:#2d5a27; color:white; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">Masuk</button>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiipLifeStory - Rumah Cerita</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <section id="landing-screen" class="hero-fade">
+        <div class="glass-card">
+            <h1 class="brand-title">BiipLifeStory</h1>
+            <p class="tagline">Selamat datang, Penulis. <br> Tuangkan setiap jejak langkahmu di sini.</p>
+            
+            <div class="auth-box">
+                <input type="text" id="user-input" placeholder="Nama Penulis" class="input-field">
+                <input type="password" id="pass-input" placeholder="Kunci Rahasia (Sandi)" class="input-field">
+                <button onclick="aksesMasuk()" class="btn-primary">Buka Lembaran Baru</button>
+            </div>
+            <p class="footer-note">Aman & Pribadi. Hanya Anda yang memegang kuncinya.</p>
         </div>
-    </div>
-</div>
+    </section>
 
-<div id="main-dashboard" style="display:none;">
-    <h1 class="brand-logo" style="text-align:center;">BiipLifeStory</h1>
-    <p style="text-align:center;">Pilih kanvas untuk jiwamu</p>
-    <div class="theme-grid">
-        <div class="theme-card botanical" onclick="bukaDiary('Botanical')">🌿 Botanical</div>
-        <div class="theme-card celestial" onclick="bukaDiary('Celestial')">✨ Celestial</div>
-        <div class="theme-card archive" onclick="bukaDiary('Archive')">📜 Archive</div>
-        <div class="theme-card watercolor" onclick="bukaDiary('Watercolor')">🎨 Watercolor</div>
-    </div>
-</div>
+    <section id="main-dashboard" class="hidden">
+        <div class="container">
+            <h2 class="dash-title">Pilih Kanvas Jiwamu</h2>
+            <div class="theme-grid">
+                <div class="card botanical" onclick="pilihTema('Botanical')">🌿 Botanical</div>
+                <div class="card celestial" onclick="pilihTema('Celestial')">✨ Celestial</div>
+                <div class="card archive" onclick="pilihTema('Archive')">📜 Archive</div>
+                <div class="card watercolor" onclick="pilihTema('Watercolor')">🎨 Watercolor</div>
+            </div>
+        </div>
+    </section>
 
-<script>
-    function prosesLogin() {
-        const u = document.getElementById('user-input').value;
-        const p = document.getElementById('pass-input').value;
-        
-        if(u === "admin" && p === "123") { // Ganti sesuai keinginanmu
-            document.getElementById('landing-screen').style.display = 'none';
-            document.getElementById('main-dashboard').style.display = 'block';
-            localStorage.setItem('session', 'active');
-        } else {
-            alert("Akses Ditolak! Gunakan akun yang benar.");
+    <script>
+        function aksesMasuk() {
+            const u = document.getElementById('user-input').value;
+            const p = document.getElementById('pass-input').value;
+
+            if (u === "" || p === "") {
+                alert("Harap isi nama dan sandi untuk memulai.");
+                return;
+            }
+
+            // SISTEM OTOMATIS: Jika akun baru, langsung simpan & masuk.
+            let savedPass = localStorage.getItem('pass_' + u);
+            if (!savedPass) {
+                localStorage.setItem('pass_' + u, p);
+                savedPass = p;
+            }
+
+            if (p === savedPass) {
+                localStorage.setItem('currentUser', u);
+                // Transisi halus
+                document.getElementById('landing-screen').classList.add('fade-out');
+                setTimeout(() => {
+                    document.getElementById('landing-screen').style.display = 'none';
+                    document.getElementById('main-dashboard').classList.remove('hidden');
+                    document.getElementById('main-dashboard').classList.add('fade-in');
+                }, 500);
+            } else {
+                alert("Sandi tidak cocok dengan akun yang sudah ada!");
+            }
         }
-    }
 
-    function bukaDiary(t) {
-        localStorage.setItem('temaDipilih', t);
-        window.location.href = 'tulis.html';
-    }
-</script>
+        function pilihTema(t) {
+            localStorage.setItem('temaDipilih', t);
+            window.location.href = 'tulis.html';
+        }
+    </script>
+</body>
+</html>
 
