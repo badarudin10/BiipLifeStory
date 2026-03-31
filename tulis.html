@@ -4,15 +4,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="writing-area">
-        <input type="text" id="judul-kisah" placeholder="Judul Kisahmu...">
-        <textarea id="isi-kisah" placeholder="Tuliskan jiwamu di sini..."></textarea>
+    <div id="kertas" class="canvas">
+        <input type="text" id="user-judul" placeholder="Tulis Judul Kisahmu...">
+        <textarea id="user-cerita" placeholder="Tuangkan jiwamu di sini..."></textarea>
         
-        <div class="action-bar">
-            <button onclick="alert('Tersimpan')" class="btn-save" style="background:#333;">Simpan Pribadi</button>
-            <button onclick="alert('Publik')" class="btn-save" style="background:#2d5a27;">Simpan Publik</button>
-            <button onclick="window.print()" class="btn-save" style="background:#d4af37;">Cetak (Print) 🖨️</button>
+        <div class="footer-btns">
+            <button onclick="unduhPribadi()" class="btn-action" style="background:#333;">Simpan Pribadi</button>
+            <button onclick="alert('Tersimpan di Awan')" class="btn-action" style="background:#2d5a27;">Simpan Publik</button>
+            <button onclick="window.print()" class="btn-action" style="background:#d4af37;">Cetak (Print) 🖨️</button>
         </div>
     </div>
+
+    <script>
+        // Set tema otomatis
+        const tema = localStorage.getItem('tema_aktif') || 'botanical';
+        document.getElementById('kertas').classList.add(tema + '-bg');
+
+        function unduhPribadi() {
+            const judul = document.getElementById('user-judul').value || "Kisah_Tanpa_Judul";
+            const isi = document.getElementById('user-cerita').value;
+            
+            // Logika download otomatis ke dokumen perangkat
+            const blob = new Blob([isi], { type: "text/plain" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = judul + ".txt";
+            link.click();
+        }
+    </script>
 </body>
 </html>
+
