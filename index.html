@@ -1,70 +1,75 @@
-<div id="view-dash" class="hidden dashboard">
-    <h2 class="brand-title" style="font-size:2.2rem;">Selamat Datang Kembali, <span id="nama-display"></span></h2>
-    
-    <div class="theme-container">
-        <div class="theme-card botanical" onclick="pilihTema('botanical')">
-            <h3>Botanical</h3><p>Pertumbuhan & Kebijaksanaan</p>
-        </div>
-        <div class="theme-card celestial" onclick="pilihTema('celestial')">
-            <h3>Celestial</h3><p>Imajinasi Tanpa Batas</p>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiipLifeStory</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="view-login" class="hero-login">
+        <div class="glass-card">
+            <h1 class="brand-title">BiipLifeStory</h1>
+            <input type="text" id="penulis" placeholder="Nama Penulis" class="input-field">
+            <input type="password" id="kunci" placeholder="Sandi Rahasia" class="input-field">
+            <button onclick="masuk()" class="btn-super">Buka Lembaran Baru</button>
         </div>
     </div>
 
-    <div class="library-section">
-        <h3 class="library-title">Arsip Karya Publik</h3>
-        <div id="list-karya">
+    <div id="view-dash" class="hidden dashboard">
+        <h2 class="brand-title" style="font-size:2rem;">Selamat Datang Kembali, <span id="nama-user"></span></h2>
+        
+        <div class="theme-container">
+            <div class="theme-card botanical" onclick="pilihTema('botanical')">
+                <h3>Botanical</h3><p>Kebijaksanaan</p>
             </div>
+            <div class="theme-card celestial" onclick="pilihTema('celestial')">
+                <h3>Celestial</h3><p>Imajinasi</p>
+            </div>
+        </div>
+
+        <div class="library-section">
+            <h3>Arsip Karya Publik</h3>
+            <div id="list-karya"></div>
+        </div>
     </div>
-</div>
 
-<script>
-    function validaAksi() {
-        const n = document.getElementById('penulis').value;
-        const k = document.getElementById('kunci').value;
-        if(n && k) {
-            localStorage.setItem('user_aktif', n);
-            document.getElementById('nama-display').innerText = n;
-            document.getElementById('view-login').classList.add('hidden');
-            document.getElementById('view-dash').classList.remove('hidden');
-            muatKaryaPublik();
-        } else { alert("Ruang ide membutuhkan identitas Anda."); }
-    }
-
-    function muatKaryaPublik() {
-        const listContainer = document.getElementById('list-karya');
-        const database = JSON.parse(localStorage.getItem('biip_stories') || "[]");
-        const userSekarang = localStorage.getItem('user_aktif');
-
-        // Filter karya milik penulis yang sedang login
-        const karyaUser = database.filter(item => item.penulis === userSekarang);
-
-        if(karyaUser.length === 0) {
-            listContainer.innerHTML = "<p style='color:#bbb; font-style:italic;'>Belum ada karya yang dipublikasikan.</p>";
-            return;
+    <script>
+        function masuk() {
+            const p = document.getElementById('penulis').value;
+            if(p) {
+                localStorage.setItem('user_aktif', p);
+                document.getElementById('nama-user').innerText = p;
+                document.getElementById('view-login').classList.add('hidden');
+                document.getElementById('view-dash').classList.remove('hidden');
+                muatKarya();
+            }
         }
 
-        listContainer.innerHTML = karyaUser.map((story, index) => `
-            <div class="story-item" onclick="bukaLagi('${story.judul}', '${story.isi}', '${story.vibe}')">
-                <div class="story-info">
-                    <h4>${story.judul}</h4>
-                    <p>${story.tanggal}</p>
+        function muatKarya() {
+            const container = document.getElementById('list-karya');
+            const data = JSON.parse(localStorage.getItem('biip_stories') || "[]");
+            const user = localStorage.getItem('user_aktif');
+            const milikSaya = data.filter(s => s.penulis === user);
+
+            if(milikSaya.length === 0) {
+                container.innerHTML = "<p>Belum ada karya.</p>";
+                return;
+            }
+
+            container.innerHTML = milikSaya.map(s => `
+                <div class="story-item">
+                    <div><b>${s.judul}</b><br><small>${s.tanggal}</small></div>
                 </div>
-                <span class="badge-theme ${story.vibe}">${story.vibe}</span>
-            </div>
-        `).join('');
-    }
+            `).join('');
+        }
 
-    function bukaLagi(judul, isi, vibe) {
-        localStorage.setItem('edit_judul', judul);
-        localStorage.setItem('edit_isi', isi);
-        localStorage.setItem('chosen_vibe', vibe);
-        window.location.href = 'tulis.html';
-    }
+        function pilihTema(t) {
+            localStorage.setItem('chosen_vibe', t);
+            window.location.href = 'tulis.html';
+        }
+    </script>
+</body>
+</html>
 
-    function pilihTema(t) {
-        localStorage.removeItem('edit_judul'); // Reset jika buat baru
-        localStorage.removeItem('edit_isi');
-        localStorage.setItem('chosen_vibe', t);
-        window.location.href = 'tulis.html';
-    }
-</script>
