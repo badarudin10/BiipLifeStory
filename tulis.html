@@ -1,37 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div id="kertas" class="canvas">
-        <input type="text" id="user-judul" placeholder="Tulis Judul Kisahmu...">
-        <textarea id="user-cerita" placeholder="Tuangkan jiwamu di sini..."></textarea>
+<script>
+    const vibe = localStorage.getItem('chosen_vibe') || 'botanical';
+    document.getElementById('paper').classList.add('canvas-' + vibe);
+
+    // Jika membuka karya lama
+    if(localStorage.getItem('edit_judul')) {
+        document.getElementById('judul-naskah').value = localStorage.getItem('edit_judul');
+        document.getElementById('isi-naskah').value = localStorage.getItem('edit_isi');
+    }
+
+    function simpanPublik() {
+        const j = document.getElementById('judul-naskah').value;
+        const i = document.getElementById('isi-naskah').value;
+        const penulis = localStorage.getItem('user_aktif');
+
+        if(!j || !i) { alert("Judul dan Isi tidak boleh kosong!"); return; }
+
+        let database = JSON.parse(localStorage.getItem('biip_stories') || "[]");
         
-        <div class="footer-btns">
-            <button onclick="unduhPribadi()" class="btn-action" style="background:#333;">Simpan Pribadi</button>
-            <button onclick="alert('Tersimpan di Awan')" class="btn-action" style="background:#2d5a27;">Simpan Publik</button>
-            <button onclick="window.print()" class="btn-action" style="background:#d4af37;">Cetak (Print) 🖨️</button>
-        </div>
-    </div>
+        const karyaBaru = {
+            penulis: penulis,
+            judul: j,
+            isi: i,
+            vibe: vibe,
+            tanggal: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
+        };
 
-    <script>
-        // Set tema otomatis
-        const tema = localStorage.getItem('tema_aktif') || 'botanical';
-        document.getElementById('kertas').classList.add(tema + '-bg');
-
-        function unduhPribadi() {
-            const judul = document.getElementById('user-judul').value || "Kisah_Tanpa_Judul";
-            const isi = document.getElementById('user-cerita').value;
-            
-            // Logika download otomatis ke dokumen perangkat
-            const blob = new Blob([isi], { type: "text/plain" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = judul + ".txt";
-            link.click();
-        }
-    </script>
-</body>
-</html>
-
+        database.push(karyaBaru);
+        localStorage.setItem('biip_stories', JSON.stringify(database));
+        
+        alert("Karya Anda telah abadi di Arsip Publik!");
+        window.location.href = 'index.html';
+    }
+</script>
