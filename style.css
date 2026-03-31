@@ -1,70 +1,99 @@
 :root {
-    --pastel-blue: #e3f2fd;
-    --pastel-green: #e8f5e9;
-    --soft-pink: #fce4ec;
-    --deep-teal: #00796b;
-    --white: #ffffff;
+    --primary-color: #56ab2f;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--pastel-blue);
-    color: #333;
+body, html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background: #fdfdfd;
 }
 
-/* LANDING PAGE YANG MENYAMBUT */
-.hero-container {
+/* BACKGROUND LANDING */
+.full-bg {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
+    display: flex; justify-content: center; align-items: center;
+    transition: transform 0.6s ease-in-out;
+}
+
+.welcome-card {
+    background: var(--glass-bg);
+    padding: 50px 40px;
+    border-radius: 40px;
     text-align: center;
-    background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-green));
+    box-shadow: var(--shadow);
+    max-width: 400px;
+    width: 85%;
+    backdrop-filter: blur(10px);
 }
 
-.card-auth {
-    background: var(--white);
-    padding: 40px;
-    border-radius: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    width: 320px;
+.brand-logo {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    color: #2d5a27;
+    margin: 0;
 }
 
-/* TOMBOL PROFESIONAL */
-.btn-primary {
-    background: var(--deep-teal);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 50px;
+.greeting-text {
+    font-size: 1rem; color: #555; margin-bottom: 30px; line-height: 1.5;
+}
+
+/* INPUT MODERN */
+.input-modern {
     width: 100%;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    background: #f0f0f0;
+    box-sizing: border-box;
     transition: 0.3s;
 }
 
-/* THEME CARDS */
-.theme-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    padding: 20px;
+.input-modern:focus {
+    border-color: var(--primary-color);
+    background: #fff;
+    outline: none;
 }
 
-.theme-item {
-    height: 150px;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.btn-glow {
+    width: 100%;
+    padding: 16px;
+    border-radius: 15px;
+    border: none;
+    background: var(--primary-color);
     color: white;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    background-size: cover;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(86, 171, 47, 0.3);
 }
 
+/* DASHBOARD STYLES */
+.dashboard-hidden { display: none; opacity: 0; }
+.dashboard-visible { display: block; opacity: 1; animation: fadeIn 0.8s; padding: 40px 20px; }
+
+.theme-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px;
+}
+
+.theme-card {
+    height: 180px; border-radius: 25px; cursor: pointer;
+    position: relative; overflow: hidden; transition: 0.4s;
+}
+
+.theme-card:hover { transform: scale(1.05); }
+.dreamy { background: url('https://i.pinimg.com/564x/82/3b/b1/823bb1d997d4b46231c5cc8e98f6d787.jpg') center/cover; }
+.vintage { background: url('https://i.pinimg.com/564x/7d/53/7d/7d537d7a468641dfb7a7f45b597c5986.jpg') center/cover; }
+.floral { background: url('https://i.pinimg.com/564x/40/e0/41/40e041300996841263d917865c378e9f.jpg') center/cover; }
+.minimal { background: url('https://i.pinimg.com/564x/6c/42/9a/6c429a99763299769324b89647632997.jpg') center/cover; }
+
+.overlay {
+    background: rgba(0,0,0,0.3); width: 100%; height: 100%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    color: white;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.slide-out { transform: translateY(-100%); }
