@@ -3,48 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BiipLifeStory - Diary Digital</title>
+    <title>BiipLifeStory - Creative Diary</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="dashboard-container">
-        <header class="main-header">
-            <h1>BiipLifeStory</h1>
-            <p>Tulis kisahmu hari ini, @azzam_creator</p>
-        </header>
-
-        <div class="reward-section">
-            <div class="badge-card">
-                <span>🏆</span>
-                <p>3 Hari Menulis Beruntun!</p>
+    <div id="welcome-screen" class="full-page">
+        <div class="hero-content">
+            <h1 class="logo-text">BiipLifeStory</h1>
+            <p class="tagline">Setiap momen adalah cerita. Abadikan dengan caramu sendiri.</p>
+            <div class="auth-buttons">
+                <button class="btn-primary" onclick="window.location.href='login.html'">Masuk ke Akun</button>
+                <button class="btn-outline">Daftar Akun Baru</button>
             </div>
         </div>
+    </div>
 
-        <div class="action-area">
-            <button class="write-btn" onclick="openEditor()"><button class="write-btn" onclick="window.location.href='tulis.html'">+ Tulis Kisah Baru</button>
-
-
-        </div>
-
-        <div class="story-list">
-            <h3>Jurnal Terakhir</h3>
-            <div class="story-card">
-                <h4>Hari yang Produktif</h4>
-                <p>30 Maret 2026 • "Belajar koding sangat seru..."</p>
+    <div id="theme-dashboard" class="container">
+        <h2 class="section-title">Pilih Tema Menulismu</h2>
+        <div class="theme-grid">
+            <div class="theme-card" onclick="startWriting('Nature')" style="background: linear-gradient(135deg, #a8e063, #56ab2f);">
+                <span class="icon">🌿</span>
+                <h3>Nature</h3>
+                <p>Nuansa hijau yang menenangkan</p>
+            </div>
+            <div class="theme-card" onclick="startWriting('Sunset')" style="background: linear-gradient(135deg, #f83600, #f9d423);">
+                <span class="icon">🌅</span>
+                <h3>Sunset</h3>
+                <p>Hangat dan penuh emosi</p>
+            </div>
+            <div class="theme-card" onclick="startWriting('Ocean')" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                <span class="icon">🌊</span>
+                <h3>Ocean</h3>
+                <p>Luas, tenang, dan mendalam</p>
+            </div>
+            <div class="theme-card" onclick="startWriting('Sparkle')" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                <span class="icon">✨</span>
+                <h3>Sparkle</h3>
+                <p>Penuh mimpi dan imajinasi</p>
             </div>
         </div>
-
-        <nav class="bottom-nav">
-            <span class="nav-item active">📖</span>
-            <span class="nav-item">📊</span>
-            <a href="login.html" class="nav-item">👤</a>
-        </nav>
     </div>
 
     <script>
-        function openEditor() {
-            alert("Membuka lembar tulisan terang... (Fitur ini sedang disiapkan!)");
+        function startWriting(theme) {
+            localStorage.setItem('selectedTheme', theme);
+            window.location.href = 'tulis.html';
         }
     </script>
 </body>
