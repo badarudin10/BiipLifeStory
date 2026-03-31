@@ -3,50 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BiipLifeStory - Profesional</title>
+    <title>BiipLifeStory</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="screen-login" class="login-screen">
+    <div id="hal-login" class="login-screen">
         <div class="glass-card">
             <h1 class="brand-title">BiipLifeStory</h1>
-            <p style="color:#777; margin-bottom:30px;">Rumah bagi setiap fragmen kisahmu.</p>
-            <input type="text" id="reg-user" placeholder="Nama Penulis" class="input-field">
-            <input type="password" id="reg-pass" placeholder="Kunci Rahasia (Sandi)" class="input-field">
-            <button onclick="simpanDanMasuk()" class="btn-login">Masuk & Mulai Menulis</button>
+            <p style="color:#666; margin-bottom:20px;">Rumah bagi setiap fragmen kisahmu.</p>
+            <input type="text" id="user-nama" placeholder="Nama Penulis" class="input-field">
+            <input type="password" id="user-sandi" placeholder="Kunci Rahasia (Sandi)" class="input-field">
+            <button onclick="cekLogin()" class="btn-login">Masuk & Mulai Menulis</button>
         </div>
     </div>
 
-    <div id="screen-dash" class="hidden dashboard">
-        <h1 class="brand-title" style="font-size: 2.2rem;">Pilih Kanvas Jiwamu</h1>
+    <div id="hal-dash" class="hidden dashboard">
+        <h1 class="brand-title" style="font-size:2rem;">Pilih Kanvas Jiwamu</h1>
         <div class="theme-grid">
-            <div class="card botanical" onclick="bukaKanvas('botanical')">🌿 Botanical</div>
-            <div class="card celestial" onclick="pilihLain()">✨ Celestial</div>
-            <div class="card archive" onclick="pilihLain()">📜 Archive</div>
-            <div class="card watercolor" onclick="pilihLain()">🎨 Watercolor</div>
+            <div class="card botanical" onclick="mulai('botanical')">🌿 Botanical</div>
+            <div class="card celestial" onclick="mulai('celestial')">✨ Celestial</div>
+            <div class="card archive" onclick="mulai('archive')">📜 Archive</div>
+            <div class="card watercolor" onclick="mulai('watercolor')">🎨 Watercolor</div>
         </div>
     </div>
 
     <script>
-        function simpanDanMasuk() {
-            const u = document.getElementById('reg-user').value;
-            const p = document.getElementById('reg-pass').value;
-            if(u && p) {
-                // Kunci akun ke memori perangkat
-                localStorage.setItem('auth_user', u);
-                localStorage.setItem('auth_pass', p);
-                
-                document.getElementById('screen-login').classList.add('hidden');
-                document.getElementById('screen-dash').classList.remove('hidden');
-            } else { alert("Lengkapi Nama dan Sandi!"); }
+        function cekLogin() {
+            const u = document.getElementById('user-nama').value;
+            const s = document.getElementById('user-sandi').value;
+            
+            if(u === "" || s === "") {
+                alert("Nama dan Sandi wajib diisi!");
+                return;
+            }
+
+            // MENGUNCI SANDI: Hanya sandi pertama yang bisa masuk seterusnya
+            if(!localStorage.getItem('sandi_' + u)) {
+                localStorage.setItem('sandi_' + u, s);
+            }
+
+            if(s === localStorage.getItem('sandi_' + u)) {
+                document.getElementById('hal-login').classList.add('hidden');
+                document.getElementById('hal-dash').classList.remove('hidden');
+            } else {
+                alert("Sandi salah! Akses ditolak.");
+            }
         }
 
-        function bukaKanvas(t) {
-            localStorage.setItem('tema_aktif', t);
+        function mulai(t) {
+            localStorage.setItem('tema_pilihan', t);
             window.location.href = 'tulis.html';
         }
-        function pilihLain() { alert("Tema ini sedang dalam penyempurnaan visual."); }
     </script>
 </body>
 </html>
