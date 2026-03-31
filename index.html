@@ -1,78 +1,49 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BiipLifeStory</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-
-    <div id="landing-screen" class="full-bg">
-        <div class="welcome-card">
-            <h1 class="brand-logo">BiipLifeStory</h1>
-            <p class="greeting-text">Rumah bagi setiap fragmen kisahmu.</p>
-            
-            <div class="form-container">
-                <input type="text" id="user-input" placeholder="Nama Penulis / Email" class="input-modern">
-                <input type="password" id="pass-input" placeholder="Kunci Rahasia" class="input-modern">
-                <button class="btn-glow" onclick="prosesLogin()">Masuk & Mulai Menulis</button>
-                <p style="font-size: 11px; margin-top: 15px; color: #666;">Belum memiliki akses? <span style="color: #2d5a27; cursor:pointer; font-weight:bold;">Daftar Sekarang</span></p>
+<div id="main-dashboard" class="dashboard-hidden">
+    <div class="dash-content">
+        <h1 class="brand-logo-small">BiipLifeStory</h1>
+        <p class="sub-title">Pilih kanvas untuk jiwamu</p>
+        
+        <div class="theme-grid">
+            <div class="theme-card botanical" onclick="bukaDiary('Botanical')" style="border: 2px solid #2d5a27; background-color: #f0fdf4;">
+                <div class="card-overlay"><span>🌿 Botanical</span></div>
+            </div>
+            <div class="theme-card celestial" onclick="bukaDiary('Celestial')" style="border: 2px solid #6366f1; background-color: #f5f3ff;">
+                <div class="card-overlay"><span>✨ Celestial</span></div>
+            </div>
+            <div class="theme-card archive" onclick="bukaDiary('Archive')" style="border: 2px solid #b45309; background-color: #fffbeb;">
+                <div class="card-overlay"><span>📜 Archive</span></div>
+            </div>
+            <div class="theme-card watercolor" onclick="bukaDiary('Watercolor')" style="border: 2px solid #ec4899; background-color: #fdf2f8;">
+                <div class="card-overlay"><span>🎨 Watercolor</span></div>
             </div>
         </div>
     </div>
+</div>
 
-    <div id="main-dashboard" class="dashboard-hidden">
-        <div class="dash-content">
-            <h1 class="brand-logo-small">BiipLifeStory</h1>
-            <p class="sub-title">Pilih kanvas untuk jiwamu</p>
+<script>
+    // Sistem Login & Daftar Sederhana
+    function prosesLogin() {
+        const user = document.getElementById('user-input').value;
+        const pass = document.getElementById('pass-input').value;
+
+        // Simulasi database lokal
+        let storedPass = localStorage.getItem('user_pass_' + user);
+
+        if(!storedPass) {
+            // Jika user belum ada, kita daftarkan otomatis (untuk pertama kali)
+            localStorage.setItem('user_pass_' + user, pass);
+            alert("Akun baru berhasil didaftarkan dengan sandi tersebut!");
+            storedPass = pass;
+        }
+
+        if(pass === storedPass) {
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('activeUser', user);
             
-            <div class="theme-grid">
-                <div class="theme-card botanical" onclick="bukaDiary('Botanical')">
-                    <div class="card-overlay"><span>🌿 Botanical</span></div>
-                </div>
-                <div class="theme-card celestial" onclick="bukaDiary('Celestial')">
-                    <div class="card-overlay"><span>✨ Celestial</span></div>
-                </div>
-                <div class="theme-card archive" onclick="bukaDiary('Archive')">
-                    <div class="card-overlay"><span>📜 Archive</span></div>
-                </div>
-                <div class="theme-card watercolor" onclick="bukaDiary('Watercolor')">
-                    <div class="card-overlay"><span>🎨 Watercolor</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function prosesLogin() {
-            const user = document.getElementById('user-input').value;
-            const pass = document.getElementById('pass-input').value;
-
-            if(user === "" || pass === "") {
-                alert("Harap masukkan nama dan kunci rahasia Anda.");
-            } else {
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('authorName', user);
-                
-                document.getElementById('landing-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('landing-screen').style.display = 'none';
-                    document.getElementById('main-dashboard').classList.remove('dashboard-hidden');
-                }, 500);
-            }
+            document.getElementById('landing-screen').style.display = 'none';
+            document.getElementById('main-dashboard').classList.remove('dashboard-hidden');
+        } else {
+            alert("Sandi salah! Akses ditolak.");
         }
-
-        function bukaDiary(tema) {
-            if(localStorage.getItem('isLoggedIn') === 'true') {
-                localStorage.setItem('temaDipilih', tema);
-                window.location.href = 'tulis.html';
-            } else {
-                alert("Silakan masuk terlebih dahulu untuk mengakses lembaran ini.");
-            }
-        }
-    </script>
-</body>
-</html>
-
+    }
+</script>
