@@ -1,99 +1,51 @@
 :root {
-    --primary-color: #56ab2f;
-    --glass-bg: rgba(255, 255, 255, 0.85);
-    --shadow: 0 15px 35px rgba(0,0,0,0.1);
+    --primary: #2d5a27;
+    --accent: #d4af37; /* Gold accent */
 }
 
-body, html {
-    margin: 0; padding: 0; height: 100%;
-    font-family: 'Poppins', sans-serif;
-    background: #fdfdfd;
-}
+body { margin: 0; font-family: 'Poppins', sans-serif; background: #fafafa; }
 
-/* BACKGROUND LANDING */
+/* BRANDING */
+.brand-logo { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--primary); margin: 0; letter-spacing: -1px; }
+.brand-logo-small { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary); text-align: center; margin-bottom: 0; }
+
+/* LOGIN SCREEN */
 .full-bg {
-    height: 100vh;
-    background: linear-gradient(135deg, #a8e063 0%, #56ab2f 100%);
-    display: flex; justify-content: center; align-items: center;
-    transition: transform 0.6s ease-in-out;
+    height: 100vh; background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+    display: flex; justify-content: center; align-items: center; transition: 0.5s;
 }
 
 .welcome-card {
-    background: var(--glass-bg);
-    padding: 50px 40px;
-    border-radius: 40px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    max-width: 400px;
-    width: 85%;
-    backdrop-filter: blur(10px);
+    background: white; padding: 60px 40px; border-radius: 50px 0 50px 0;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1); text-align: center; max-width: 400px;
 }
 
-.brand-logo {
-    font-family: 'Dancing Script', cursive;
-    font-size: 3rem;
-    color: #2d5a27;
-    margin: 0;
-}
-
-.greeting-text {
-    font-size: 1rem; color: #555; margin-bottom: 30px; line-height: 1.5;
-}
-
-/* INPUT MODERN */
 .input-modern {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 15px;
-    border: 2px solid transparent;
-    border-radius: 15px;
-    background: #f0f0f0;
-    box-sizing: border-box;
-    transition: 0.3s;
-}
-
-.input-modern:focus {
-    border-color: var(--primary-color);
-    background: #fff;
-    outline: none;
+    width: 100%; padding: 15px; margin-bottom: 12px; border: 1px solid #ddd;
+    border-radius: 8px; box-sizing: border-box;
 }
 
 .btn-glow {
-    width: 100%;
-    padding: 16px;
-    border-radius: 15px;
-    border: none;
-    background: var(--primary-color);
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 10px 20px rgba(86, 171, 47, 0.3);
+    background: var(--primary); color: white; border: none; width: 100%;
+    padding: 18px; border-radius: 8px; font-weight: bold; cursor: pointer;
 }
 
-/* DASHBOARD STYLES */
-.dashboard-hidden { display: none; opacity: 0; }
-.dashboard-visible { display: block; opacity: 1; animation: fadeIn 0.8s; padding: 40px 20px; }
-
-.theme-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px;
-}
+/* THEME CARDS DENGAN GAMBAR */
+.dashboard-hidden { display: none; }
+.theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
 
 .theme-card {
-    height: 180px; border-radius: 25px; cursor: pointer;
-    position: relative; overflow: hidden; transition: 0.4s;
+    height: 200px; border-radius: 20px; cursor: pointer; overflow: hidden;
+    position: relative; transition: 0.3s; border: 3px solid white;
 }
 
-.theme-card:hover { transform: scale(1.05); }
-.dreamy { background: url('https://i.pinimg.com/564x/82/3b/b1/823bb1d997d4b46231c5cc8e98f6d787.jpg') center/cover; }
-.vintage { background: url('https://i.pinimg.com/564x/7d/53/7d/7d537d7a468641dfb7a7f45b597c5986.jpg') center/cover; }
-.floral { background: url('https://i.pinimg.com/564x/40/e0/41/40e041300996841263d917865c378e9f.jpg') center/cover; }
-.minimal { background: url('https://i.pinimg.com/564x/6c/42/9a/6c429a99763299769324b89647632997.jpg') center/cover; }
+.botanical { background: url('https://i.pinimg.com/564x/41/4a/01/414a013998522304958f016335987c08.jpg') center/cover; }
+.celestial { background: url('https://i.pinimg.com/564x/d5/4b/7b/d54b7b7a16744654b1f661a38a7c2997.jpg') center/cover; }
+.archive { background: url('https://i.pinimg.com/564x/72/7b/9d/727b9d363299769324b89647632997.jpg') center/cover; }
+.watercolor { background: url('https://i.pinimg.com/564x/6c/42/9a/6c429a99763299769324b89647632997.jpg') center/cover; }
 
-.overlay {
-    background: rgba(0,0,0,0.3); width: 100%; height: 100%;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    color: white;
+.card-overlay {
+    position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.4);
+    color: white; padding: 10px; text-align: center; backdrop-filter: blur(5px);
 }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.slide-out { transform: translateY(-100%); }
