@@ -3,84 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BiipLifeStory - Rumah Cerita Kreatif</title>
+    <title>BiipLifeStory</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div id="landing-screen" class="full-bg">
-        <div class="welcome-card animate-fade">
+        <div class="welcome-card">
             <h1 class="brand-logo">BiipLifeStory</h1>
-            <p class="greeting-text">Selamat datang, Jiwa Kreatif. <br> Hari ini adalah lembaran kosong yang menanti goresan kisahmu.</p>
+            <p class="greeting-text">Rumah bagi setiap fragmen kisahmu.</p>
             
-            <div id="auth-form" class="form-container">
-                <div id="register-fields">
-                    <input type="text" id="reg-name" placeholder="Siapa namamu hari ini?" class="input-modern">
-                </div>
-                <input type="password" id="reg-pass" placeholder="Kunci rahasiamu (Sandi)" class="input-modern">
-                
-                <button class="btn-glow" onclick="masukDashboard()" id="main-btn">Mulai Menulis Kisah</button>
-                
-                <p class="switch-text" id="toggle-link" onclick="toggleAuth()">Sudah punya akun? Masuk di sini</p>
+            <div class="form-container">
+                <input type="text" id="user-input" placeholder="Nama Penulis / Email" class="input-modern">
+                <input type="password" id="pass-input" placeholder="Kunci Rahasia" class="input-modern">
+                <button class="btn-glow" onclick="prosesLogin()">Masuk & Mulai Menulis</button>
+                <p style="font-size: 11px; margin-top: 15px; color: #666;">Belum memiliki akses? <span style="color: #2d5a27; cursor:pointer; font-weight:bold;">Daftar Sekarang</span></p>
             </div>
         </div>
     </div>
 
     <div id="main-dashboard" class="dashboard-hidden">
-        <header class="dash-header">
-            <h2>Pilih Suasana Kisahmu</h2>
-            <p>Pilih satu tema untuk memulai petualangan menulismu</p>
-        </header>
-        
-        <div class="theme-grid">
-            <div class="theme-card dreamy" onclick="bukaDiary('Dreamy')">
-                <div class="overlay"><h3>Dreamy</h3><p>Penuh Mimpi</p></div>
-            </div>
-            <div class="theme-card vintage" onclick="bukaDiary('Vintage')">
-                <div class="overlay"><h3>Vintage</h3><p>Klasik & Hangat</p></div>
-            </div>
-            <div class="theme-card floral" onclick="bukaDiary('Floral')">
-                <div class="overlay"><h3>Floral</h3><p>Segar & Cantik</p></div>
-            </div>
-            <div class="theme-card minimal" onclick="bukaDiary('Minimal')">
-                <div class="overlay"><h3>Minimal</h3><p>Bersih & Tenang</p></div>
+        <div class="dash-content">
+            <h1 class="brand-logo-small">BiipLifeStory</h1>
+            <p class="sub-title">Pilih kanvas untuk jiwamu</p>
+            
+            <div class="theme-grid">
+                <div class="theme-card botanical" onclick="bukaDiary('Botanical')">
+                    <div class="card-overlay"><span>🌿 Botanical</span></div>
+                </div>
+                <div class="theme-card celestial" onclick="bukaDiary('Celestial')">
+                    <div class="card-overlay"><span>✨ Celestial</span></div>
+                </div>
+                <div class="theme-card archive" onclick="bukaDiary('Archive')">
+                    <div class="card-overlay"><span>📜 Archive</span></div>
+                </div>
+                <div class="theme-card watercolor" onclick="bukaDiary('Watercolor')">
+                    <div class="card-overlay"><span>🎨 Watercolor</span></div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        let isLogin = false;
+        function prosesLogin() {
+            const user = document.getElementById('user-input').value;
+            const pass = document.getElementById('pass-input').value;
 
-        function toggleAuth() {
-            isLogin = !isLogin;
-            const regFields = document.getElementById('register-fields');
-            const mainBtn = document.getElementById('main-btn');
-            const toggleLink = document.getElementById('toggle-link');
-            
-            if (isLogin) {
-                regFields.style.display = 'none';
-                mainBtn.innerText = 'Buka Diary-ku';
-                toggleLink.innerText = 'Belum punya kunci? Daftar Akun';
+            if(user === "" || pass === "") {
+                alert("Harap masukkan nama dan kunci rahasia Anda.");
             } else {
-                regFields.style.display = 'block';
-                mainBtn.innerText = 'Mulai Menulis Kisah';
-                toggleLink.innerText = 'Sudah punya akun? Masuk di sini';
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('authorName', user);
+                
+                document.getElementById('landing-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('landing-screen').style.display = 'none';
+                    document.getElementById('main-dashboard').classList.remove('dashboard-hidden');
+                }, 500);
             }
         }
 
-        function masukDashboard() {
-            document.getElementById('landing-screen').classList.add('slide-out');
-            setTimeout(() => {
-                document.getElementById('landing-screen').style.display = 'none';
-                document.getElementById('main-dashboard').classList.remove('dashboard-hidden');
-                document.getElementById('main-dashboard').classList.add('dashboard-visible');
-            }, 600);
-        }
-
         function bukaDiary(tema) {
-            localStorage.setItem('temaDipilih', tema);
-            window.location.href = 'tulis.html';
+            if(localStorage.getItem('isLoggedIn') === 'true') {
+                localStorage.setItem('temaDipilih', tema);
+                window.location.href = 'tulis.html';
+            } else {
+                alert("Silakan masuk terlebih dahulu untuk mengakses lembaran ini.");
+            }
         }
     </script>
 </body>
