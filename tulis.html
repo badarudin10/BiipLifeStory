@@ -1,15 +1,13 @@
 <div class="art-paper">
-    <button onclick="history.back()" style="background:none; border:none; color:#999; cursor:pointer; text-align:left; margin-bottom:20px;">← Dashboard</button>
-    
     <input type="text" id="judul" placeholder="Judul Kisahmu..." 
-           style="width:100%; font-size:2.2rem; border:none; outline:none; font-family:'Playfair Display', serif; background:transparent; color:#333; margin-bottom:10px;">
+           style="width:100%; font-size:2rem; border:none; outline:none; background:transparent; font-family:'Playfair Display'; margin-bottom:10px;">
     
     <textarea id="story-input" placeholder="Tuliskan jiwamu di sini..."></textarea>
     
     <div class="action-bar">
-        <button onclick="simpanLokal()" class="btn-action btn-dark">Simpan Pribadi</button>
-        <button onclick="alert('Terpublikasi')" class="btn-action btn-green">Simpan Publik</button>
-        <button onclick="window.print()" class="btn-action btn-gold">Cetak Kisah (Print) 🖨️</button>
+        <button onclick="save()" class="btn-action" style="background:#333;">Simpan Pribadi</button>
+        <button onclick="publish()" class="btn-action" style="background:#2d5a27;">Simpan Publik</button>
+        <button onclick="window.print()" class="btn-action" style="background:#d4af37;">Cetak Kisah 🖨️</button>
     </div>
 </div>
 
