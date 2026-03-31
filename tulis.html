@@ -1,37 +1,70 @@
-<style>
-    .paper-sheet {
-        background: white;
-        background-image: url('https://www.transparenttextures.com/patterns/lined-paper.png'); /* Pola garis buku */
-        min-height: 90vh;
-        margin: 15px;
-        padding: 30px;
-        border-radius: 5px;
-        box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-    }
-    .btn-group-save { display: flex; gap: 10px; margin-top: 20px; }
-    .btn-save-private { background: #555; color: white; border: none; padding: 10px; border-radius: 5px; }
-    .btn-save-public { background: #00796b; color: white; border: none; padding: 10px; border-radius: 5px; }
-</style>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menulis Kisah - BiipLifeStory</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .art-paper {
+            background: white; min-height: 90vh; margin: 20px; border-radius: 10px;
+            padding: 50px; position: relative; box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        /* Pernak-pernik tema */
+        .decor-top { position: absolute; top: 0; right: 0; width: 150px; opacity: 0.7; pointer-events: none; }
+        .decor-bottom { position: absolute; bottom: 0; left: 0; width: 150px; opacity: 0.7; pointer-events: none; }
+        
+        #story-input {
+            width: 100%; height: 500px; border: none; outline: none;
+            font-size: 1.2rem; font-family: 'Playfair Display', serif;
+            line-height: 1.8; background: transparent;
+        }
 
-<div class="paper-sheet" id="diary-page">
-    <button onclick="history.back()">⬅ Kembali</button>
-    <h2 id="judul-tema">Tema: Minimalis</h2>
-    
-    <textarea id="isi-cerita" placeholder="Tuliskan kisah kreatifmu hari ini..." style="width: 100%; border: none; background: transparent; font-size: 18px; outline: none;"></textarea>
+        .action-bar { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-pribadi { background: #444; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; }
+        .btn-publik { background: #2d5a27; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; }
+        .btn-print { background: #d4af37; color: white; padding: 12px; border: none; border-radius: 5px; cursor: pointer; }
 
-    <div class="btn-group-save">
-        <button class="btn-save-private" onclick="alert('Tersimpan di Diary Pribadi🔒')">Simpan Pribadi</button>
-        <button class="btn-save-public" onclick="alert('Kisahmu terbit untuk dunia! 🌍')">Simpan untuk Publik</button>
+        @media print {
+            .btn-group, .back-btn { display: none !important; }
+            .art-paper { box-shadow: none; margin: 0; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="art-paper" id="paper">
+        <img id="decor-t" class="decor-top" src="">
+        <img id="decor-b" class="decor-bottom" src="">
+
+        <button onclick="history.back()" class="back-btn">⬅ Dashboard</button>
+        <h2 id="paper-title" style="font-family: 'Playfair Display', serif; color: #2d5a27;"></h2>
+
+        <textarea id="story-input" placeholder="Tuliskan jiwamu di sini..."></textarea>
+
+        <div class="action-bar btn-group">
+            <button class="btn-pribadi" onclick="alert('Kisah tersimpan di diary pribadi🔒')">Simpan Pribadi</button>
+            <button class="btn-publik" onclick="alert('Kisah dipublikasikan! 🌍')">Simpan Publik</button>
+            <button class="btn-print" onclick="window.print()">Cetak Kisah (Print) 🖨️</button>
+        </div>
     </div>
-</div>
 
-<script>
-    const tema = localStorage.getItem('temaDipilih');
-    document.getElementById('judul-tema').innerText = "Lembaran " + tema;
-    
-    // Memberikan sentuhan gambar sesuai tema
-    const page = document.getElementById('diary-page');
-    if(tema === 'Vintage') page.style.backgroundColor = '#f4e4bc';
-    if(tema === 'Floral') page.style.borderTop = '10px solid pink';
-</script>
+    <script>
+        const tema = localStorage.getItem('temaDipilih');
+        document.getElementById('paper-title').innerText = "Lembaran " + tema;
+
+        // Set dekorasi sesuai tema
+        if(tema === 'Botanical') {
+            document.getElementById('decor-t').src = "https://www.transparentpng.com/download/leaves/green-leaves-png-images-free-download-23.png";
+            document.getElementById('paper').style.background = "#f7fff7";
+        } else if(tema === 'Celestial') {
+            document.getElementById('decor-t').src = "https://www.transparentpng.com/download/star/gold-star-png-3.png";
+            document.getElementById('paper').style.background = "#fcfaff";
+        } else if(tema === 'Archive') {
+            document.getElementById('paper').style.background = "#f4efe1";
+        }
+    </script>
+</body>
+</html>
 
