@@ -1,51 +1,52 @@
-:root {
-    --primary: #2d5a27;
-    --accent: #d4af37; /* Gold accent */
-}
+/* Reset & Base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Poppins', sans-serif; background: #f0f2f5; color: #333; }
 
-body { margin: 0; font-family: 'Poppins', sans-serif; background: #fafafa; }
-
-/* BRANDING */
-.brand-logo { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--primary); margin: 0; letter-spacing: -1px; }
-.brand-logo-small { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary); text-align: center; margin-bottom: 0; }
-
-/* LOGIN SCREEN */
+/* Landing Page Profesional */
 .full-bg {
-    height: 100vh; background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
-    display: flex; justify-content: center; align-items: center; transition: 0.5s;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e4d2b 0%, #2d5a27 100%);
+    display: flex; justify-content: center; align-items: center;
 }
 
 .welcome-card {
-    background: white; padding: 60px 40px; border-radius: 50px 0 50px 0;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.1); text-align: center; max-width: 400px;
+    background: white; padding: 40px; border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    text-align: center; width: 90%; max-width: 400px;
 }
 
-.input-modern {
-    width: 100%; padding: 15px; margin-bottom: 12px; border: 1px solid #ddd;
-    border-radius: 8px; box-sizing: border-box;
-}
+.brand-logo { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #2d5a27; margin-bottom: 10px; }
 
-.btn-glow {
-    background: var(--primary); color: white; border: none; width: 100%;
-    padding: 18px; border-radius: 8px; font-weight: bold; cursor: pointer;
-}
+/* Dashboard Pilihan Tema (Kontras & Jelas) */
+#main-dashboard { padding: 40px 20px; max-width: 600px; margin: auto; }
 
-/* THEME CARDS DENGAN GAMBAR */
-.dashboard-hidden { display: none; }
-.theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
+.theme-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px;
+}
 
 .theme-card {
-    height: 200px; border-radius: 20px; cursor: pointer; overflow: hidden;
-    position: relative; transition: 0.3s; border: 3px solid white;
+    height: 120px; border-radius: 15px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold; font-size: 1.1rem; color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    transition: 0.3s; border: 4px solid #fff;
 }
 
-.botanical { background: url('https://i.pinimg.com/564x/41/4a/01/414a013998522304958f016335987c08.jpg') center/cover; }
-.celestial { background: url('https://i.pinimg.com/564x/d5/4b/7b/d54b7b7a16744654b1f661a38a7c2997.jpg') center/cover; }
-.archive { background: url('https://i.pinimg.com/564x/72/7b/9d/727b9d363299769324b89647632997.jpg') center/cover; }
-.watercolor { background: url('https://i.pinimg.com/564x/6c/42/9a/6c429a99763299769324b89647632997.jpg') center/cover; }
+.theme-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-.card-overlay {
-    position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.4);
-    color: white; padding: 10px; text-align: center; backdrop-filter: blur(5px);
+/* Warna Tema Khusus */
+.botanical { background: #4caf50; }
+.celestial { background: #3f51b5; }
+.archive { background: #795548; }
+.watercolor { background: #e91e63; }
+
+/* Lembaran Menulis */
+.art-paper {
+    background: white; min-height: 100vh; padding: 30px;
+    border-top: 20px solid #2d5a27; /* Dekorasi atas */
 }
 
+#story-input {
+    width: 100%; height: 400px; border: none; outline: none;
+    font-size: 1.1rem; line-height: 1.6; margin-top: 20px;
+}
