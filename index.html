@@ -1,57 +1,44 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BiipLifeStory - Bagikan Kisahmu</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+<div class="hero-container">
+    <div class="card-auth" id="auth-box">
+        <h1 style="color: #00796b;">BiipLifeStory</h1>
+        <p id="welcome-msg">Tuangkan kisah kreatifmu di sini.</p>
+        
+        <input type="text" id="user-name" placeholder="Nama Penulis" class="input-style">
+        <input type="password" id="user-pass" placeholder="Buat Sandi" class="input-style">
+        
+        <button class="btn-primary" onclick="handleAuth()" id="auth-btn">Daftar Akun</button>
+        <p id="switch-auth" onclick="toggleAuth()" style="font-size: 12px; cursor: pointer; color: blue; margin-top: 15px;">Sudah punya akun? Masuk</p>
+    </div>
 
-    <section id="landing-page" class="hero-section">
-        <div class="hero-overlay">
-            <h1 class="animate-pop">BiipLifeStory</h1>
-            <p>Setiap hari adalah lembaran baru. Tuliskan kisahmu dengan indah.</p>
-            <div class="btn-group">
-                <button class="btn-main" onclick="showDashboard()">Mulai Menulis</button>
-                <button class="btn-sec" onclick="window.location.href='login.html'">Masuk Akun</button>
-            </div>
+    <div id="main-dashboard" style="display:none; width: 100%; max-width: 500px;">
+        <h2 style="text-align: center;">Pilih Tema Diary</h2>
+        <div class="theme-container">
+            <div class="theme-item" onclick="bukaDiary('Dreamy')" style="background-image: url('https://img.freepik.com/free-photo/blue-watercolor-texture-background_1083-172.jpg')">✨ Dreamy</div>
+            <div class="theme-item" onclick="bukaDiary('Vintage')" style="background-image: url('https://img.freepik.com/free-photo/old-paper-texture_1194-5416.jpg')">📜 Vintage</div>
+            <div class="theme-item" onclick="bukaDiary('Floral')" style="background-image: url('https://img.freepik.com/free-photo/pink-flowers-background_1253-33.jpg')">🌸 Floral</div>
+            <div class="theme-item" onclick="bukaDiary('Minimalis')" style="background-image: url('https://img.freepik.com/free-photo/white-paper-texture_1194-5998.jpg')">☁️ Minimalis</div>
         </div>
-    </section>
+    </div>
+</div>
 
-    <section id="dashboard-themes" class="container" style="display:none;">
-        <h2 class="title-center">Pilih Suasana Menulismu</h2>
-        <div class="theme-grid">
-            <div class="card-theme nature" onclick="goToWrite('Nature')">
-                <span class="emoji">🌿</span>
-                <h3>Nature</h3>
-                <p>Hijau menenangkan</p>
-            </div>
-            <div class="card-theme sunset" onclick="goToWrite('Sunset')">
-                <span class="emoji">🌅</span>
-                <h3>Sunset</h3>
-                <p>Hangat & Romantis</p>
-            </div>
-            <div class="card-theme ocean" onclick="goToWrite('Ocean')">
-                <span class="emoji">🌊</span>
-                <h3>Ocean</h3>
-                <p>Tenang & Luas</p>
-            </div>
-        </div>
-    </section>
+<script>
+    let isRegistered = false;
 
-    <script>
-        function showDashboard() {
-            document.getElementById('landing-page').style.display = 'none';
-            document.getElementById('dashboard-themes').style.display = 'block';
-        }
+    function toggleAuth() {
+        isRegistered = !isRegistered;
+        document.getElementById('auth-btn').innerText = isRegistered ? 'Masuk' : 'Daftar Akun';
+        document.getElementById('welcome-msg').innerText = isRegistered ? 'Selamat Datang Kembali!' : 'Tuangkan kisah kreatifmu di sini.';
+        document.getElementById('switch-auth').innerText = isRegistered ? 'Belum punya akun? Daftar' : 'Sudah punya akun? Masuk';
+    }
 
-        function goToWrite(theme) {
-            localStorage.setItem('selectedTheme', theme);
-            window.location.href = 'tulis.html';
-        }
-    </script>
-</body>
-</html>
+    function handleAuth() {
+        // Logika sederhana untuk simulasi login
+        document.getElementById('auth-box').style.display = 'none';
+        document.getElementById('main-dashboard').style.display = 'block';
+    }
 
+    function bukaDiary(tema) {
+        localStorage.setItem('temaDipilih', tema);
+        window.location.href = 'tulis.html';
+    }
+</script>
