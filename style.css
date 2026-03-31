@@ -1,61 +1,71 @@
-:root {
-    --primary: #2d5a27;
-    --gold: #d4af37;
-    --bg-light: #fdfcfb;
+/* Tampilan Dashboard Tema yang Elegan */
+.theme-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+    padding: 20px; 
+    max-width: 500px; 
+    margin: auto; 
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Poppins', sans-serif; background: var(--bg-light); overflow-x: hidden; }
-
-/* LANDING PAGE */
-.hero-fade {
-    height: 100vh;
-    background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
-    display: flex; justify-content: center; align-items: center;
-}
-
-.glass-card {
-    background: white; padding: 50px 30px; border-radius: 40px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-    text-align: center; width: 90%; max-width: 420px;
-    border: 1px solid rgba(255,255,255,0.8);
-}
-
-.brand-title { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--primary); margin-bottom: 10px; }
-.tagline { font-size: 0.95rem; color: #666; margin-bottom: 30px; line-height: 1.6; }
-
-/* INPUT & BUTTON */
-.input-field {
-    width: 100%; padding: 15px; margin-bottom: 15px;
-    border: 1.5px solid #eee; border-radius: 12px; font-size: 1rem;
-    transition: 0.3s;
-}
-.input-field:focus { border-color: var(--primary); outline: none; background: #fff; }
-
-.btn-primary {
-    width: 100%; padding: 16px; background: var(--primary); color: white;
-    border: none; border-radius: 12px; font-weight: 600; cursor: pointer;
-    box-shadow: 0 10px 20px rgba(45, 90, 39, 0.2); transition: 0.3s;
-}
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(45, 90, 39, 0.3); }
-
-/* DASHBOARD THEME */
-.hidden { display: none; }
-.theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; }
 .card {
-    height: 150px; border-radius: 20px; display: flex; align-items: center; justify-content: center;
-    color: white; font-weight: bold; font-size: 1.2rem; cursor: pointer;
-    transition: 0.3s; box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    height: 160px; 
+    border-radius: 25px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    color: white; 
+    font-weight: 600; 
+    font-size: 1.1rem; 
+    cursor: pointer;
+    transition: 0.4s; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
-.card:hover { transform: scale(1.05); }
 
-.botanical { background: linear-gradient(45deg, #4caf50, #2d5a27); }
-.celestial { background: linear-gradient(45deg, #3f51b5, #1a237e); }
-.archive { background: linear-gradient(45deg, #8d6e63, #4e342e); }
-.watercolor { background: linear-gradient(45deg, #ec4899, #9d174d); }
+/* Warna Deep & Professional (Bukan warna terang anak-anak) */
+.botanical { background: linear-gradient(145deg, #1e391a, #2d5a27); } /* Dark Forest */
+.celestial { background: linear-gradient(145deg, #1a1c3a, #283593); } /* Deep Midnight */
+.archive { background: linear-gradient(145deg, #3e2723, #5d4037); }   /* Rich Espresso */
+.watercolor { background: linear-gradient(145deg, #880e4f, #ad1457); } /* Deep Wine */
 
-/* ANIMASI */
-.fade-out { opacity: 0; transform: scale(0.9); transition: 0.5s; }
-.fade-in { animation: fadeIn 0.8s ease forwards; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+/* Kertas Menulis Sesuai Gambar Terakhir */
+.art-paper {
+    background: #f9fbf9; /* Warna kertas sangat tipis sesuai gambar */
+    min-height: 100vh;
+    padding: 40px 25px;
+    display: flex;
+    flex-direction: column;
+}
 
+#story-input {
+    flex-grow: 1;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1.25rem;
+    color: #444;
+    font-family: 'Playfair Display', serif;
+    line-height: 1.8;
+}
+
+/* Tombol di Bawah (Persis Gambar Terakhir) */
+.action-bar {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+    justify-content: flex-start;
+}
+
+.btn-action {
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.btn-dark { background: #333; color: white; }
+.btn-green { background: #2d5a27; color: white; }
+.btn-gold { background: #d4af37; color: white; }
