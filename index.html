@@ -1,24 +1,37 @@
 <section id="landing-screen" class="hero-fade">
     <div class="glass-card">
         <h1 class="brand-title">BiipLifeStory</h1>
-        <p class="tagline">Selamat datang, Penulis. <br> Tuangkan setiap jejak langkahmu di sini.</p>
-        
+        <p style="color:#666; margin-bottom:25px;">Selamat datang, Penulis.</p>
         <div class="auth-box">
             <input type="text" id="user-input" placeholder="Nama Penulis" class="input-field">
-            <input type="password" id="pass-input" placeholder="Kunci Rahasia (Sandi)" class="input-field">
-            <button onclick="aksesMasuk()" class="btn-primary">Buka Lembaran Baru</button>
-        </div>
-        </div>
-</section>
-
-<section id="main-dashboard" class="hidden">
-    <div class="container">
-        <h2 class="dash-title">Pilih Kanvas Jiwamu</h2>
-        <div class="theme-grid">
-            <div class="card botanical" onclick="pilihTema('Botanical')">🌿 Botanical</div>
-            <div class="card celestial" onclick="pilihTema('Celestial')">✨ Celestial</div>
-            <div class="card archive" onclick="pilihTema('Archive')">📜 Archive</div>
-            <div class="card watercolor" onclick="pilihTema('Watercolor')">🎨 Watercolor</div>
+            <input type="password" id="pass-input" placeholder="Kunci Rahasia" class="input-field">
+            <button onclick="prosesMasuk()" class="btn-primary">Buka Lembaran Baru</button>
         </div>
     </div>
 </section>
+
+<section id="main-dashboard" class="hidden">
+    <h2 style="text-align:center; font-family:'Playfair Display'; font-size:1.8rem;">Pilih Kanvas Jiwamu</h2>
+    <div class="theme-grid">
+        <div class="card botanical" onclick="buka('Botanical')">🌿 Botanical</div>
+        <div class="card celestial" onclick="buka('Celestial')">✨ Celestial</div>
+        <div class="card archive" onclick="buka('Archive')">📜 Archive</div>
+        <div class="card watercolor" onclick="buka('Watercolor')">🎨 Watercolor</div>
+    </div>
+</section>
+
+<script>
+    function prosesMasuk() {
+        const u = document.getElementById('user-input').value;
+        const p = document.getElementById('pass-input').value;
+        if(u !== "" && p !== "") {
+            document.getElementById('landing-screen').style.display = 'none';
+            document.getElementById('main-dashboard').classList.remove('hidden');
+        } else { alert("Isi nama dan sandi!"); }
+    }
+    function buka(t) {
+        localStorage.setItem('temaDipilih', t);
+        window.location.href = 'tulis.html';
+    }
+</script>
+
