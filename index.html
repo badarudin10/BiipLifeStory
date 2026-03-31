@@ -3,46 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BiipLifeStory</title>
+    <title>BiipLifeStory - Profesional</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="login-screen" class="hero-login">
+    <div id="screen-login" class="login-screen">
         <div class="glass-card">
             <h1 class="brand-title">BiipLifeStory</h1>
-            <input type="text" id="user" placeholder="Nama Penulis" class="input-field">
-            <input type="password" id="pass" placeholder="Kunci Rahasia" class="input-field">
-            <button onclick="masuk()" class="btn-primary">Buka Lembaran Baru</button>
+            <p style="color:#777; margin-bottom:30px;">Rumah bagi setiap fragmen kisahmu.</p>
+            <input type="text" id="reg-user" placeholder="Nama Penulis" class="input-field">
+            <input type="password" id="reg-pass" placeholder="Kunci Rahasia (Sandi)" class="input-field">
+            <button onclick="simpanDanMasuk()" class="btn-login">Masuk & Mulai Menulis</button>
         </div>
     </div>
 
-    <div id="dashboard-screen" class="hidden dashboard">
-        <h2 style="font-family:'Playfair Display'; font-size:1.8rem; margin-bottom:20px;">Pilih Kanvas Jiwamu</h2>
+    <div id="screen-dash" class="hidden dashboard">
+        <h1 class="brand-title" style="font-size: 2.2rem;">Pilih Kanvas Jiwamu</h1>
         <div class="theme-grid">
-            <div class="card botanical" onclick="pilih('Botanical')">🌿 Botanical</div>
-            <div class="card celestial" onclick="pilih('Celestial')">✨ Celestial</div>
-            <div class="card archive" onclick="pilih('Archive')">📜 Archive</div>
-            <div class="card watercolor" onclick="pilih('Watercolor')">🎨 Watercolor</div>
+            <div class="card botanical" onclick="bukaKanvas('botanical')">🌿 Botanical</div>
+            <div class="card celestial" onclick="pilihLain()">✨ Celestial</div>
+            <div class="card archive" onclick="pilihLain()">📜 Archive</div>
+            <div class="card watercolor" onclick="pilihLain()">🎨 Watercolor</div>
         </div>
     </div>
 
     <script>
-        function masuk() {
-            const u = document.getElementById('user').value;
-            const p = document.getElementById('pass').value;
-            if (u && p) {
-                document.getElementById('login-screen').classList.add('hidden');
-                document.getElementById('dashboard-screen').classList.remove('hidden');
-            } else {
-                alert("Mohon masukkan Nama & Sandi.");
-            }
+        function simpanDanMasuk() {
+            const u = document.getElementById('reg-user').value;
+            const p = document.getElementById('reg-pass').value;
+            if(u && p) {
+                // Kunci akun ke memori perangkat
+                localStorage.setItem('auth_user', u);
+                localStorage.setItem('auth_pass', p);
+                
+                document.getElementById('screen-login').classList.add('hidden');
+                document.getElementById('screen-dash').classList.remove('hidden');
+            } else { alert("Lengkapi Nama dan Sandi!"); }
         }
-        function pilih(tema) {
-            localStorage.setItem('temaAktif', tema);
+
+        function bukaKanvas(t) {
+            localStorage.setItem('tema_aktif', t);
             window.location.href = 'tulis.html';
         }
+        function pilihLain() { alert("Tema ini sedang dalam penyempurnaan visual."); }
     </script>
 </body>
 </html>
-
