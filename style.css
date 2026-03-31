@@ -1,81 +1,116 @@
-/* style.css */
 :root {
-    --dark-green: #062c0b; /* Hijau Gelap untuk Dashboard */
-    --bright-green: #00ff00; /* Hijau Terang untuk Aksen */
-    --bg-dark: #000000;
-    --text-light: #f0f0f0;
+    --primary-green: #2d5a27; /* Hijau Daun Tenang */
+    --accent-green: #4ade80;  /* Hijau Terang untuk Tombol */
+    --soft-bg: #f4f7f4;       /* Background Terang untuk Menulis */
+    --dark-card: #1b3a1e;      /* Kartu Hijau Gelap Profesional */
+    --text-main: #ffffff;
+    --text-muted: #a0aec0;
 }
 
 body {
     margin: 0;
-    padding: 0;
-    background-color: var(--bg-dark);
-    color: var(--text-light);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', sans-serif;
+    background-color: #0f2612; /* Background Dasar yang Lebih Soft */
+    color: var(--text-main);
 }
 
+/* DASHBOARD UTAMA */
 .dashboard-container {
     max-width: 480px;
     margin: 0 auto;
+    padding: 20px;
+    background: linear-gradient(180deg, #1b3a1e 0%, #0f2612 100%);
     min-height: 100vh;
-    background-color: var(--dark-green);
-    position: relative;
-    padding-bottom: 70px;
 }
 
 .main-header {
-    padding: 30px 20px;
-    background: linear-gradient(to bottom, #0a3d0f, var(--dark-green));
     text-align: center;
+    padding: 20px 0;
 }
 
-.main-header h1 { color: var(--bright-green); margin: 0; font-size: 24px; }
-
-.reward-section { padding: 15px; }
-.badge-card {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid var(--bright-green);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 10px 20px;
+.main-header h1 {
+    font-size: 28px;
+    color: var(--accent-green);
+    letter-spacing: -1px;
 }
 
-.action-area { padding: 20px; text-align: center; }
+/* KARTU REWARD & JURNAL */
+.reward-section, .story-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.story-card h4 {
+    margin: 0 0 10px 0;
+    color: var(--accent-green);
+}
+
+/* MERAPIKAN PARAGRAF */
+.story-card p {
+    font-size: 14px;
+    line-height: 1.6; /* Membuat tulisan lebih enak dibaca */
+    color: #cbd5e0;
+    margin: 0;
+    text-align: justify; /* Tulisan rapi rata kiri-kanan */
+}
+
+/* TOMBOL PROFESIONAL */
 .write-btn {
-    background: var(--bright-green);
-    color: black;
+    width: 100%;
+    background: var(--accent-green);
+    color: #062c0b;
     border: none;
-    padding: 15px 30px;
-    border-radius: 30px;
-    font-weight: bold;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: 700;
     font-size: 16px;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+    transition: 0.3s;
+    box-shadow: 0 4px 14px rgba(74, 222, 128, 0.3);
 }
 
-.story-list { padding: 0 20px; }
-.story-card {
-    background: rgba(0,0,0,0.3);
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    border-left: 4px solid var(--bright-green);
-}
-
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    max-width: 480px;
-    height: 60px;
-    background: #000;
+/* STYLE UNTUK HALAMAN LOGIN PROFESIONAL */
+.login-wrapper {
+    height: 100vh;
     display: flex;
-    justify-content: space-around;
     align-items: center;
+    justify-content: center;
+    background: #0f2612;
 }
 
-.nav-item { font-size: 24px; text-decoration: none; color: #666; }
-.nav-item.active { color: var(--bright-green); }
+.login-card {
+    background: #1b3a1e;
+    padding: 40px 30px;
+    border-radius: 24px;
+    width: 85%;
+    max-width: 350px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
 
+.login-card input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #2d5a27;
+    background: #0f2612;
+    color: white;
+    box-sizing: border-box;
+}
+
+.login-card button {
+    background: var(--accent-green);
+    color: #062c0b;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 15px;
+    cursor: pointer;
+}
