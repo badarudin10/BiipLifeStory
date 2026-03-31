@@ -3,57 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BiipBooks</title>
-    <title>Lifestory</title>
+    <title>BiipLifeStory - Creative Diary</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div id="login-page" class="hero-fade">
-        <div class="glass-card">
-            <h1 class="brand-title">BiipLifeStory</h1>
-            <p style="color:#666; margin-bottom:25px;">Selamat datang, Penulis.</p>
-            <input type="text" id="user-input" placeholder="Nama Penulis" class="input-field">
-            <input type="password" id="pass-input" placeholder="Kunci Rahasia (Sandi)" class="input-field">
-            <button onclick="loginSekarang()" class="btn-primary">Buka Lembaran Baru</button>
+    <div id="welcome-screen" class="full-page">
+        <div class="hero-content">
+            <h1 class="logo-text">BiipLifeStory</h1>
+            <p class="tagline">Setiap momen adalah cerita. Abadikan dengan caramu sendiri.</p>
+            <div class="auth-buttons">
+                <button class="btn-primary" onclick="window.location.href='login.html'">Masuk ke Akun</button>
+                <button class="btn-outline">Daftar Akun Baru</button>
+            </div>
         </div>
     </div>
 
-    <div id="dashboard-page" class="hidden container">
-        <h2 style="text-align:center; font-family:'Playfair Display'; font-size:1.8rem;">Pilih Kanvas Jiwamu</h2>
+    <div id="theme-dashboard" class="container">
+        <h2 class="section-title">Pilih Tema Menulismu</h2>
         <div class="theme-grid">
-            <div class="card botanical" onclick="mulai('Botanical')">🌿 Botanical</div>
-            <div class="card celestial" onclick="mulai('Celestial')">✨ Celestial</div>
-            <div class="card archive" onclick="mulai('Archive')">📜 Archive</div>
-            <div class="card watercolor" onclick="mulai('Watercolor')">🎨 Watercolor</div>
+            <div class="theme-card" onclick="startWriting('Nature')" style="background: linear-gradient(135deg, #a8e063, #56ab2f);">
+                <span class="icon">🌿</span>
+                <h3>Nature</h3>
+                <p>Nuansa hijau yang menenangkan</p>
+            </div>
+            <div class="theme-card" onclick="startWriting('Sunset')" style="background: linear-gradient(135deg, #f83600, #f9d423);">
+                <span class="icon">🌅</span>
+                <h3>Sunset</h3>
+                <p>Hangat dan penuh emosi</p>
+            </div>
+            <div class="theme-card" onclick="startWriting('Ocean')" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                <span class="icon">🌊</span>
+                <h3>Ocean</h3>
+                <p>Luas, tenang, dan mendalam</p>
+            </div>
+            <div class="theme-card" onclick="startWriting('Sparkle')" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                <span class="icon">✨</span>
+                <h3>Sparkle</h3>
+                <p>Penuh mimpi dan imajinasi</p>
+            </div>
         </div>
     </div>
 
     <script>
-        function loginSekarang() {
-            const u = document.getElementById('user-input').value;
-            const p = document.getElementById('pass-input').value;
-            
-            if(u && p) {
-                // Simpan sandi otomatis jika akun baru
-                if(!localStorage.getItem('pw_'+u)) localStorage.setItem('pw_'+u, p);
-                
-                if(p === localStorage.getItem('pw_'+u)) {
-                    document.getElementById('login-page').classList.add('hidden');
-                    document.getElementById('dashboard-page').classList.remove('hidden');
-                } else {
-                    alert("Sandi salah untuk akun ini!");
-                }
-            } else {
-                alert("Mohon isi Nama dan Sandi.");
-            }
-        }
-
-        function mulai(t) {
-            localStorage.setItem('temaDipilih', t);
+        function startWriting(theme) {
+            localStorage.setItem('selectedTheme', theme);
             window.location.href = 'tulis.html';
         }
     </script>
 </body>
 </html>
-
