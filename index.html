@@ -2,109 +2,129 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BiipLifeStory Professional</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
-    <div class="ornament-bg">
+    <div class="vibe-bg">
         <div id="orn-L" class="orn-side"></div>
         <div id="orn-R" class="orn-side"></div>
     </div>
 
-    <div id="page-auth" style="height:100vh; display:flex; align-items:center; justify-content:center;">
-        <div style="background:white; padding:50px; border-radius:45px; text-align:center; box-shadow:0 30px 70px rgba(0,0,0,0.05); width:420px;">
-            <h1 style="font-family:'Crimson Pro'; font-size:3.5rem; margin-bottom:25px;">BiipLife</h1>
-            <input type="text" id="in-user" placeholder="Nama Penulis..." style="width:100%; padding:18px; border-radius:20px; border:1px solid #eee; margin-bottom:20px; font-size:1rem; outline:none;">
-            <button onclick="handleLogin()" class="btn-ui" style="background:#1a1a1a; color:white; width:100%; padding:18px;">Buka Gerbang Ide</button>
+    <div id="view-auth" class="auth-screen">
+        <div class="auth-card">
+            <h1 style="font-family:'Crimson Pro'; font-size:3rem;">BiipLife</h1>
+            <p id="info-auth" style="color:#888; margin-bottom:20px;">Silakan masuk atau daftar.</p>
+            <input type="text" id="user-in" placeholder="Nama Penulis" style="width:100%; padding:15px; border-radius:12px; border:1px solid #eee; margin-bottom:10px;">
+            <input type="password" id="pass-in" placeholder="Kunci Rahasia" style="width:100%; padding:15px; border-radius:12px; border:1px solid #eee; margin-bottom:20px;">
+            <button onclick="handleAuth()" class="btn-p" style="background:#1a1a1a; color:white; width:100%; padding:15px;">Mulai Berkarya</button>
+            <p onclick="toggleReg()" style="margin-top:15px; cursor:pointer; font-size:0.8rem; text-decoration:underline;" id="toggle-txt">Belum ada akun? Daftar.</p>
         </div>
     </div>
 
-    <div id="page-dash" class="hidden dash-container">
-        <h2 style="font-family:'Crimson Pro'; font-size:2.8rem; margin-bottom:40px;">Mahakarya Anda, <span id="span-user"></span></h2>
-        
+    <div id="view-dash" class="hidden dash-container">
+        <h2>Selamat Datang, <span id="user-tag"></span></h2>
         <div class="grid-themes">
-            <div class="theme-box botanical" onclick="bukaKertas('botanical')"><h3>Botanical</h3><p>Alam & Kebijaksanaan</p></div>
-            <div class="theme-box celestial" onclick="bukaKertas('celestial')"><h3>Celestial</h3><p>Bintang & Imajinasi</p></div>
-            <div class="theme-box archive" onclick="bukaKertas('archive')"><h3>Archive</h3><p>Sejarah & Keabadian</p></div>
-            <div class="theme-box watercolor" onclick="bukaKertas('watercolor')"><h3>Watercolor</h3><p>Seni & Kejujuran</p></div>
+            <div class="theme-item botanical" onclick="mulai('botanical')"><h3>Botanical</h3></div>
+            <div class="theme-item celestial" onclick="mulai('celestial')"><h3>Celestial</h3></div>
+            <div class="theme-item archive" onclick="mulai('archive')"><h3>Archive</h3></div>
+            <div class="theme-item watercolor" onclick="mulai('watercolor')"><h3>Watercolor</h3></div>
         </div>
+        <h3 style="border-bottom:1px solid #ddd; padding-bottom:10px;">Arsip Publik Anda</h3>
+        <div id="list-arsip" style="margin-top:20px;"></div>
     </div>
 
-    <div id="page-write" class="hidden writing-area">
-        <div id="pdf-content" class="paper-wrapper">
-            <input type="text" id="txt-title" class="input-title" placeholder="Judul Mahakarya...">
-            <textarea id="txt-body" class="input-body" placeholder="Tuliskan jejak pikiran Anda di sini..."></textarea>
+    <div id="view-write" class="hidden write-screen">
+        <div id="print-area" class="paper-inner">
+            <input type="text" id="title-field" class="input-t" placeholder="Judul Mahakarya...">
+            <textarea id="body-field" class="input-b" placeholder="Tuliskan isi hati Anda..."></textarea>
         </div>
-
-        <div class="action-dock">
-            <button onclick="exportKePDF()" class="btn-ui" style="background:#ad1457; color:white;">Simpan PDF</button>
-            <button onclick="bagikanKeWA()" class="btn-ui" style="background:#25d366; color:white;">Share WA</button>
-            <button onclick="window.print()" class="btn-ui">Print</button>
-            <button onclick="kembaliDash()" class="btn-ui" style="background:transparent; border:1px solid #ccc;">Kembali</button>
+        <div class="dock">
+            <button onclick="simpanKeArsip()" class="btn-p" style="background:#2d5a27; color:white;">Simpan & Publikasikan</button>
+            <button onclick="unduhPDF()" class="btn-p" style="background:#ad1457; color:white;">Unduh PDF</button>
+            <button onclick="shareWA()" class="btn-p" style="background:#25d366; color:white;">WA</button>
+            <button onclick="keDashboard()" class="btn-p">Kembali</button>
         </div>
     </div>
 
     <script>
-        function handleLogin() {
-            const name = document.getElementById('in-user').value;
-            if(name) {
-                document.getElementById('span-user').innerText = name;
-                gantiHalaman('page-dash');
+        let isReg = false;
+        function toggleReg() { isReg = !isReg; document.getElementById('info-auth').innerText = isReg ? "Daftar Akun Baru." : "Silakan masuk."; document.getElementById('toggle-txt').innerText = isReg ? "Sudah ada akun? Login." : "Belum ada akun? Daftar."; }
+
+        function handleAuth() {
+            const u = document.getElementById('user-in').value;
+            const p = document.getElementById('pass-in').value;
+            let users = JSON.parse(localStorage.getItem('biip_u') || "[]");
+            if(isReg) {
+                users.push({u, p}); localStorage.setItem('biip_u', JSON.stringify(users));
+                alert("Berhasil Daftar!"); toggleReg();
+            } else {
+                if(users.find(x => x.u === u && x.p === p)) { localStorage.setItem('cur_u', u); keDashboard(); } 
+                else { alert("Salah sandi/user!"); }
             }
         }
 
-        function gantiHalaman(id) {
-            document.querySelectorAll('body > div:not(.ornament-bg)').forEach(d => d.classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
+        function keDashboard() {
+            document.querySelectorAll('body > div:not(.vibe-bg)').forEach(d => d.classList.add('hidden'));
+            document.getElementById('view-dash').classList.remove('hidden');
+            document.getElementById('user-tag').innerText = localStorage.getItem('cur_u');
+            renderArsip();
         }
 
-        function bukaKertas(tema) {
-            gantiHalaman('page-write');
-            const L = document.getElementById('orn-L');
-            const R = document.getElementById('orn-R');
-            
-            // LINK GAMBAR ORNAMEN (Sisi Kertas)
-            const ornamen = {
+        function mulai(vibe) {
+            document.querySelectorAll('body > div:not(.vibe-bg)').forEach(d => d.classList.add('hidden'));
+            document.getElementById('view-write').classList.remove('hidden');
+            const img = {
                 'botanical': 'url("https://www.transparentpng.com/download/leaves/green-leaves-png-images-12.png")',
                 'celestial': 'url("https://www.transparentpng.com/download/star/gold-star-transparent-background-21.png")',
                 'archive': 'url("https://www.transparentpng.com/download/book/old-book-transparent-background-12.png")',
                 'watercolor': 'url("https://www.transparentpng.com/download/watercolor/watercolor-splash-transparent-background-5.png")'
             };
-            
-            L.style.backgroundImage = ornamen[tema] || 'none';
-            R.style.backgroundImage = ornamen[tema] || 'none';
-            
-            document.getElementById('txt-title').value = "";
-            document.getElementById('txt-body').value = "";
+            document.getElementById('orn-L').style.backgroundImage = img[vibe];
+            document.getElementById('orn-R').style.backgroundImage = img[vibe];
+            document.getElementById('title-field').value = ""; document.getElementById('body-field').value = "";
         }
 
-        function exportKePDF() {
-            const element = document.getElementById('pdf-content');
-            const filename = (document.getElementById('txt-title').value || 'Mahakarya') + '.pdf';
-            const opt = {
-                margin: 0.5,
-                filename: filename,
-                image: { type: 'jpeg', quality: 1 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-            };
-            html2pdf().set(opt).from(element).save();
+        function simpanKeArsip() {
+            const t = document.getElementById('title-field').value;
+            const b = document.getElementById('body-field').value;
+            if(!t || !b) return alert("Kosong!");
+            let db = JSON.parse(localStorage.getItem('biip_db') || "[]");
+            db.push({ u: localStorage.getItem('cur_u'), t, b, d: new Date().toLocaleDateString() });
+            localStorage.setItem('biip_db', JSON.stringify(db));
+            alert("Tersimpan di Arsip!"); keDashboard();
         }
 
-        function bagikanKeWA() {
-            const t = document.getElementById('txt-title').value || "Karya Baru";
-            alert("Harap simpan PDF terlebih dahulu, lalu lampirkan filenya ke WhatsApp agar format visualnya tetap sempurna.");
-            window.open(`https://wa.me/?text=Halo, silakan baca mahakarya saya yang berjudul: *${t}*`, '_blank');
+        function renderArsip() {
+            const list = document.getElementById('list-arsip');
+            const u = localStorage.getItem('cur_u');
+            const db = JSON.parse(localStorage.getItem('biip_db') || "[]").filter(x => x.u === u);
+            list.innerHTML = db.reverse().map((s, i) => `
+                <div class="archive-card">
+                    <div><strong>${s.t}</strong><br><small>${s.d}</small></div>
+                    <button onclick="bacaUlang('${encodeURIComponent(s.t)}', '${encodeURIComponent(s.b)}')" class="btn-p">BACA</button>
+                </div>
+            `).join('');
         }
 
-        function kembaliDash() {
-            document.getElementById('orn-L').style.backgroundImage = 'none';
-            document.getElementById('orn-R').style.backgroundImage = 'none';
-            gantiHalaman('page-dash');
+        function bacaUlang(t, b) {
+            mulai('archive');
+            document.getElementById('title-field').value = decodeURIComponent(t);
+            document.getElementById('body-field').value = decodeURIComponent(b);
+        }
+
+        function unduhPDF() {
+            const el = document.getElementById('print-area');
+            html2pdf().from(el).save(document.getElementById('title-field').value + ".pdf");
+        }
+
+        function shareWA() {
+            const t = document.getElementById('title-field').value;
+            window.open(`https://wa.me/?text=Baca karya saya: *${t}*`, '_blank');
         }
     </script>
 </body>
 </html>
+
